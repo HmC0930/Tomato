@@ -11,8 +11,9 @@ class SetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_set)
 
         button_true.setOnClickListener {
-            val workTime = Integer.parseInt(work_time.editableText.toString())
-            val restTime = Integer.parseInt(rest_time.editableText.toString())
+            //设置番茄钟的工作、休息时长
+            val workTime = Integer.parseInt(work_time.editableText.toString())*60*1000 //时间从分钟换成毫秒
+            val restTime = Integer.parseInt(rest_time.editableText.toString())*60*1000
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("workTime", workTime)
             intent.putExtra("restTime", restTime)
