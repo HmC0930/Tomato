@@ -1,7 +1,6 @@
-package com.example.tomato
+package com.example.tomato.ui.main
 
-import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.*
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +11,11 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.lifecycle.ViewModelProvider
+import com.example.tomato.R
+import com.example.tomato.ui.data.DataActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_tomato.*
 import java.text.SimpleDateFormat
-import kotlin.concurrent.thread
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -50,11 +50,20 @@ class TomatoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val numberOfTomatoes = view.findViewById<TextView>(R.id.number_of_tasks)
+        numberOfTomatoes.text = mainViewModel.numberOfTomatoes.toString()
+
         val timeTextView = view.findViewById<TextView>(R.id.time_text_view)
         timeTextView.text = formatTime(mainViewModel.workTime)
 
         val statusTextView = view.findViewById<TextView>(R.id.status_text_view)
 
+        val dataButton = view.findViewById<Button>(R.id.data_button)
+        dataButton.setOnClickListener {
+            val intent = Intent(context, DataActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.startActivity(intent)
+        }
 
         val toggleButton: ToggleButton = view.findViewById(R.id.toggle_button)
         toggleButton.setOnCheckedChangeListener { _, isChecked ->
@@ -82,12 +91,12 @@ class TomatoFragment : Fragment() {
                                     timeTextView.text = formatTime(millisUntilFinished)
                                     if (!myBoolean) {
                                         cancel()
+                                        Toast.makeText(context, "继续", Toast.LENGTH_SHORT).show()
                                         time_text_view.text = formatTime(mainViewModel.workTime.toLong())
                                     }
                                 }
 
                                 override fun onFinish() {
-                                    Toast.makeText(context, "继续", Toast.LENGTH_SHORT).show()
                                 }
                             }.start()
                         }
@@ -98,12 +107,15 @@ class TomatoFragment : Fragment() {
                             timeTextView.text = formatTime(millisUntilFinished)
                             if (!myBoolean) {
                                 cancel()
+                                Toast.makeText(context, "计时结束", Toast.LENGTH_SHORT).show()
                                 time_text_view.text = formatTime(mainViewModel.workTime.toLong())
                             }
                         }
 
                         override fun onFinish() {
-                            Toast.makeText(context, "计时结束", Toast.LENGTH_SHORT).show()
+
+                            //进行此次数据存储
+                            val taskName = activity?.intent?.getStringExtra("taskName")
                         }
                     }.start()
                 }
@@ -112,14 +124,7 @@ class TomatoFragment : Fragment() {
                 activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
                 time_text_view.text = formatTime(mainViewModel.workTime.toLong())
                 myBoolean = false
-
                 statusTextView.text = ""
-                activity?.findViewById<FloatingActionButton>(R.id.fab)?.show()
-                if (timer1 != null && timer2 != null) {
-                    timer1!!.cancel()
-                    timer2!!.cancel()
-                    timer3!!.cancel()
-                }
             }
         }
     }
