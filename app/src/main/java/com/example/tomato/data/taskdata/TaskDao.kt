@@ -1,9 +1,6 @@
 package com.example.tomato.data.taskdata
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 
 @Dao
@@ -20,5 +17,8 @@ interface TaskDao {
 
     @Insert(entity = Task::class)
     fun insert(task: Task)
+
+    @Update
+    fun updateTask(task:Task)
 }
 

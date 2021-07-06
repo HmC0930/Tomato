@@ -44,6 +44,7 @@ class TomatoFragment : Fragment() {
                 25 * 60 * 1000)!!
         mainViewModel.restTime = activity?.intent?.getIntExtra("restTime",
                 5 * 60 * 1000)!!
+        mainViewModel.userID = activity?.intent?.getStringExtra("user").toString()
         return inflater.inflate(R.layout.fragment_tomato, container, false)
     }
 
@@ -70,6 +71,7 @@ class TomatoFragment : Fragment() {
             if (isChecked) {
                 myBoolean = true
                 activity?.findViewById<FloatingActionButton>(R.id.fab)?.hide()
+                //前三个番茄钟周期，也就是三个工作时间三个休息时间
                 for (i in 1..3) {
                     statusTextView.text = "番茄钟已开启"
                     timer1 = object : CountDownTimer(mainViewModel.workTime.toLong(), 1000) {
@@ -101,6 +103,7 @@ class TomatoFragment : Fragment() {
                             }.start()
                         }
                     }.start()
+                    //最后一次工作时间
                     timer3 = object : CountDownTimer(mainViewModel.workTime.toLong(), 1000) {
 
                         override fun onTick(millisUntilFinished: Long) {
@@ -118,6 +121,7 @@ class TomatoFragment : Fragment() {
                             val taskName = activity?.intent?.getStringExtra("taskName")
                         }
                     }.start()
+
                 }
             } else {
 

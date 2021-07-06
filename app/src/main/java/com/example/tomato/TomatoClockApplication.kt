@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.util.DBUtil
-import com.example.tomato.data.taskdata.AppDatabase
+import com.example.tomato.data.TomatoDatabase
 import com.example.tomato.data.taskdata.TaskDao
 import com.example.tomato.data.userdata.UserDao
 
@@ -14,9 +13,10 @@ class TomatoClockApplication : Application() {
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var tomatoClockApplicationContext: Context
-        lateinit var db: AppDatabase
+        lateinit var db: TomatoDatabase
         lateinit var taskDao: TaskDao
         lateinit var userDao: UserDao
+        var currentUser = ""
     }
 
     override fun onCreate() {
@@ -24,7 +24,7 @@ class TomatoClockApplication : Application() {
         tomatoClockApplicationContext = applicationContext
         db = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "database"
+            TomatoDatabase::class.java, "database"
         ).build()
         taskDao = db.taskDao()
         userDao = db.userDao()

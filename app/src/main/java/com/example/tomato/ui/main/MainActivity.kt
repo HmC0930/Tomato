@@ -16,8 +16,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        val user = intent?.getStringExtra("user").toString()
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             val intent = Intent(this, SetActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
         }
     }

@@ -8,7 +8,7 @@ import com.example.tomato.data.userdata.User
 import com.example.tomato.data.userdata.UserDao
 
 @Database(entities = [Task::class, User::class], version = 1, exportSchema = false)
-abstract class TomatoDatatbase: RoomDatabase(){
+abstract class TomatoDatabase: RoomDatabase(){
     abstract fun taskDao(): TaskDao
     abstract fun userDao(): UserDao
 }

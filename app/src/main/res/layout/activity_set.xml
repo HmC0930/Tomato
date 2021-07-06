@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/task_name"
-        android:text="25"
+        android:text="番茄钟"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -63,7 +63,7 @@
 
     <EditText
         android:id="@+id/task_type"
-        android:text="25"
+        android:text="未定义类型"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
