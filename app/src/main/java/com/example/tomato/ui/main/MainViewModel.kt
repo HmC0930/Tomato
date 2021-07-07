@@ -7,5 +7,6 @@ class MainViewModel: ViewModel() {
     var userID = ""
     var workTime = 25
     var restTime = 5
-    var numberOfTomatoes = 3
+    var numberOfTomatoes =3
+
 }

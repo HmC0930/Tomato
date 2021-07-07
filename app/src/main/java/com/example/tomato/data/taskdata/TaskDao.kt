@@ -12,8 +12,11 @@ interface TaskDao {
     @Delete
     fun delete(task: Task)
 
-    @Query("SELECT * FROM task WHERE type LIKE :type")
-    fun queryByType(type: String):Task
+    @Query("SELECT * FROM task WHERE type = :type")
+    fun queryByType(type: String): Task
+
+    @Query("SELECT * FROM task WHERE userCreatorID = :uid")
+    fun queryById(uid: String): List<Task>
 
     @Insert(entity = Task::class)
     fun insert(task: Task)

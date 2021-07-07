@@ -11,6 +11,7 @@ import com.example.tomato.data.taskdata.Task
 import com.example.tomato.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_set.*
 import java.text.SimpleDateFormat
+import kotlin.concurrent.thread
 
 class SetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,7 @@ class SetActivity : AppCompatActivity() {
 
         button_true.setOnClickListener{
             //设置番茄钟
-            val user = intent?.getStringExtra("user").toString()
+            val user = TomatoClockApplication.currentUser
             val taskName = task_name.editableText.toString()
             val taskType = task_type.editableText.toString()
             val workTime = Integer.parseInt(work_time.editableText.toString())*60*1000 //时间从分钟换成毫秒
@@ -28,7 +29,9 @@ class SetActivity : AppCompatActivity() {
 
             //创建task实例并存入数据库
             val task = Task(taskName, taskType, workTime,restTime, user, Utils.READY)
-            TomatoClockApplication.taskDao.insert(task)
+            thread {
+                TomatoClockApplication.taskDao.insert(task)
+            }
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("workTime", workTime)
@@ -36,6 +39,7 @@ class SetActivity : AppCompatActivity() {
             intent.putExtra("taskName", taskName)
             intent.putExtra("taskType", taskType)
             intent.putExtra("createTime", createTime)
+            intent.putExtra("task",task)
             startActivity(intent)
 
         }
