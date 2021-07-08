@@ -26,19 +26,11 @@ class DataAdapter(activity: Activity, val resourceId: Int, data: List<Task>) :
         val task = getItem(position)
         if (task != null) {
             itemNameTextView.text = task.name
-            itemTimeTextView.text = formatTime(task.workingTime * 4 * 60 * 1000)
+            itemTimeTextView.text = (task.workingTime * 4).toString() + "分钟"
             itemTypeTextView.text = task.taskType
         }
         return view
     }
 
-    fun formatTime(time: Int): String? {
-        val dateFormat = SimpleDateFormat("mm:ss")
-        return dateFormat.format(time)
-    }
 
-    fun formatTime(time: Long): String? {
-        val dateFormat = SimpleDateFormat("mm:ss")
-        return dateFormat.format(time)
-    }
 }

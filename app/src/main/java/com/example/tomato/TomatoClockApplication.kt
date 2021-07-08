@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.example.tomato.data.TomatoDatabase
 import com.example.tomato.data.taskdata.TaskDao
 import com.example.tomato.data.userdata.UserDao
+import kotlin.concurrent.thread
 
 class TomatoClockApplication : Application() {
 
@@ -17,6 +18,7 @@ class TomatoClockApplication : Application() {
         lateinit var taskDao: TaskDao
         lateinit var userDao: UserDao
         var currentUser = ""
+        var numberOfTomatoes = 0
     }
 
     override fun onCreate() {

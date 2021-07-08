@@ -58,6 +58,7 @@ class LogActivity : AppCompatActivity() {
                             msg.what = 2
                         } else {
                             msg.what = 3
+                            TomatoClockApplication.numberOfTomatoes = foundUser.number
                         }
                     } ?:let {
                         //为空的情况

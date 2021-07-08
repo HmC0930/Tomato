@@ -3,7 +3,6 @@ package com.example.tomato.data.taskdata
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tomato.data.userdata.User
 import java.io.Serializable
 
 @Entity(tableName = "task")
@@ -13,7 +12,7 @@ data class Task(
     val workingTime: Int,
     val restTime: Int,
     @ColumnInfo val userCreatorID: String,
-    val status: Int,
+    var status: Int,
     val createTime: String = "",
     val startTime: String = "",
     val finishTime: String = ""

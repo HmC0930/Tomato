@@ -16,7 +16,7 @@ interface TaskDao {
     fun queryByType(type: String): Task
 
     @Query("SELECT * FROM task WHERE userCreatorID = :uid")
-    fun queryById(uid: String): List<Task>
+    fun queryByCreatorID(uid: String): List<Task>
 
     @Insert(entity = Task::class)
     fun insert(task: Task)

@@ -22,4 +22,7 @@ interface UserDao {
     @Transaction
     @Query("SELECT * FROM user")
     fun getUsersWithTasks():List<UserWithTasks>
+
+    @Update
+    fun updateUser(user: User)
 }
