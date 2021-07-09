@@ -26,7 +26,7 @@ class DataAdapter(activity: Activity, val resourceId: Int, data: List<Task>) :
         val task = getItem(position)
         if (task != null) {
             itemNameTextView.text = task.name
-            itemTimeTextView.text = (task.workingTime * 4).toString() + "分钟"
+            itemTimeTextView.text = (task.workingTime * 4 / 60000).toString() + "分钟"
             itemTypeTextView.text = task.taskType
         }
         return view

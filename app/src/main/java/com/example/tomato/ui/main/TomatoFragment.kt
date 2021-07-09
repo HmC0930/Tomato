@@ -86,8 +86,9 @@ class TomatoFragment : Fragment() {
 
         //设置自定义控件和动画
         val countDownView: CountDownView = view.findViewById(R.id.count_down_view)
-        val valueAnimator: ValueAnimator =
+        var valueAnimator: ValueAnimator =
             ObjectAnimator.ofFloat(0f, mainViewModel.workTime.toFloat())
+
         valueAnimator.interpolator = LinearInterpolator() // 线性插值器，匀速变化
 
         val toggleButton: ToggleButton = view.findViewById(R.id.toggle_button)
@@ -127,73 +128,115 @@ class TomatoFragment : Fragment() {
                 when (msg.what) {
                     2 -> {
                         Toast.makeText(context, "第一个番茄钟结束，开始休息", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.restTime)
 
+                        valueAnimator=
+                        ObjectAnimator.ofFloat(0f, mainViewModel.restTime.toFloat())
                         valueAnimator.duration = mainViewModel.restTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.restTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
+                        }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
                         }
                         valueAnimator.start()
                     }
                     3 -> {
                         Toast.makeText(context, "休息时间结束，开始第二个番茄钟", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.workTime)
-
+                        valueAnimator=
+                            ObjectAnimator.ofFloat(0f, mainViewModel.workTime.toFloat())
                         valueAnimator.duration = mainViewModel.workTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.workTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
                         }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
+                        }
                         valueAnimator.start()
                     }
                     4 -> {
-                        Toast.makeText(context, "第二个番茄钟结束，开始休息", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.restTime)
-
+                        valueAnimator=
+                            ObjectAnimator.ofFloat(0f, mainViewModel.restTime.toFloat())
                         valueAnimator.duration = mainViewModel.restTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.restTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
+                        }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
                         }
                         valueAnimator.start()
                     }
                     5 -> {
                         Toast.makeText(context, "休息时间结束，开始第三个番茄钟", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.workTime)
-
+                        valueAnimator=
+                            ObjectAnimator.ofFloat(0f, mainViewModel.workTime.toFloat())
                         valueAnimator.duration = mainViewModel.workTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.workTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
+                        }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
                         }
                         valueAnimator.start()
                     }
                     6 -> {
                         Toast.makeText(context, "第三个番茄钟结束，开始休息", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.restTime)
-
+                        valueAnimator=
+                            ObjectAnimator.ofFloat(0f, mainViewModel.restTime.toFloat())
                         valueAnimator.duration = mainViewModel.restTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.restTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
+                        }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
                         }
                         valueAnimator.start()
                     }
                     7 -> {
                         Toast.makeText(context, "休息时间结束，开始第四个番茄钟", Toast.LENGTH_SHORT).show()
-                        countDownView.setTotalTime(mainViewModel.workTime)
-
+                        valueAnimator=
+                            ObjectAnimator.ofFloat(0f, mainViewModel.workTime.toFloat())
                         valueAnimator.duration = mainViewModel.workTime.toLong() // 执行时间
-
+                        valueAnimator.interpolator = LinearInterpolator()
+                        countDownView.setTotalTime(mainViewModel.workTime)
                         valueAnimator.addUpdateListener { animation ->
                             val currentTime = animation.animatedValue as Float
                             countDownView.setCurrentTime(currentTime.toInt())
+                        }
+                        valueAnimator.doOnEnd {
+                            flag ++
+                            val msg = Message()
+                            msg.what = flag
+                            handler.sendMessage(msg)
                         }
                         valueAnimator.start()
                     }
@@ -211,7 +254,6 @@ class TomatoFragment : Fragment() {
                             val user = TomatoClockApplication.userDao.queryById(TomatoClockApplication.currentUser)
                             user.number++
                             TomatoClockApplication.userDao.updateUser(user)
-
                         }
 
                     }
